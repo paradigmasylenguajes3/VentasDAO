@@ -18,6 +18,6 @@ script02.sql
 ```
 contienen los scripts de la base de datos
 
-###Settings
+### Settings ⌨️
 
 Configurar los atributos de Conexion de la Clase  ConnectionFactory y ademas agregar el jar de postgres a la libreria
