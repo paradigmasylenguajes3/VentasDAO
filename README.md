@@ -3,7 +3,7 @@
 Proyecto que contiene el Alta de Categoria y Clientes con JDBC
 
 
-### Installing
+### Installing 🔩
 Ejecutar scripts de la en la base de datos
 
 ```
