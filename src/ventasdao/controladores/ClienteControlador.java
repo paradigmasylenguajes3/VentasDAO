@@ -13,7 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ventasdao.dominio.ConnectionFactory;
+
+import ventasdao.dominio.Conexion;
 import ventasdao.objetos.Cliente;
 
 /**
@@ -39,15 +40,16 @@ public class ClienteControlador implements ICrud<Cliente>{
     //public void eliminarCategoria(Categoria c);
     
     @Override
-    public boolean crear(Cliente entidad) {
-          connection = ConnectionFactory.getConnection();
-         String sql = "INSERT INTO clientes (nombre,cuil,razon_social) VALUES (?,?,?)";
+    public boolean crear(Cliente entidad) throws SQLException, Exception{
+
+        connection = Conexion.obtenerConexion ();
+        String sql = "INSERT INTO clientes (nombre,documento,apellido) VALUES (?,?,?)";
         
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, entidad.getNombre());
-            ps.setString(2, entidad.getCuil());
-            ps.setString(3, entidad.getRazonSocial());
+            ps.setString(2, entidad.getDocumento());
+            ps.setString(3, entidad.getApellido ());
             ps.executeUpdate();
             connection.close();
             
@@ -64,9 +66,9 @@ public class ClienteControlador implements ICrud<Cliente>{
     }
 
     @Override
-    public ArrayList<Cliente> listar() {
+    public ArrayList<Cliente> listar() throws SQLException,Exception{
         
-     connection = ConnectionFactory.getConnection();
+     connection = Conexion.obtenerConexion ();
         try{
             
             this.stmt = connection.createStatement();
@@ -81,9 +83,9 @@ public class ClienteControlador implements ICrud<Cliente>{
                 Cliente cliente = new Cliente();
                 
                 cliente.setNombre(rs.getString("nombre"));
-                cliente.setCuil(rs.getString("cuil"));
+                cliente.setCuil(rs.getString("documento"));
                 cliente.setId(rs.getInt("id"));
-                cliente.setRazonSocial(rs.getString("razon_social"));
+                cliente.setApellido (rs.getString("apellido"));
                 
                         //System.out.println(cliente);
                 

@@ -13,8 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import ventasdao.dominio.ConnectionFactory;
+
+import ventasdao.dominio.Conexion;
 import ventasdao.objetos.Categoria;
 
 /**
@@ -40,10 +40,10 @@ public class CategoriaControlador implements ICrud<Categoria>{
         
       }
     
-    public ArrayList<Categoria> listar(){
+    public ArrayList<Categoria> listar() throws SQLException, Exception{
     
     
-     connection = ConnectionFactory.getConnection();
+     connection = Conexion.obtenerConexion ();
         try{
             
             this.stmt = connection.createStatement();
@@ -81,8 +81,8 @@ public class CategoriaControlador implements ICrud<Categoria>{
     }
 
     @Override
-    public boolean crear(Categoria entidad) {
-        connection = ConnectionFactory.getConnection();
+    public boolean crear(Categoria entidad) throws SQLException, Exception{
+        connection = Conexion.obtenerConexion ();
          String sql = "INSERT INTO categorias (denominacion,descripcion) VALUES (?,?)";
         
         try {
@@ -91,8 +91,6 @@ public class CategoriaControlador implements ICrud<Categoria>{
             ps.setString(2, entidad.getDescripcion());
             ps.executeUpdate();
             connection.close();
-            
-
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaControlador.class.getName()).log(Level.SEVERE, null, ex);
         }

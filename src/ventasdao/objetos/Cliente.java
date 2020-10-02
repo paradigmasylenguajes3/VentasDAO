@@ -12,25 +12,19 @@ package ventasdao.objetos;
 public class Cliente {
     
     private Integer id;
-    private String cuil;
+    private String documento;
     private String nombre;
-    private String razonSocial;
+    private String apellido;
 
     public String getCuil() {
-        return cuil;
+        return documento;
     }
 
     public void setCuil(String cuil) {
-        this.cuil = cuil;
+        this.documento = cuil;
     }
 
-    public String getRazonSocial() {
-        return razonSocial;
-    }
 
-    public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
-    }
 
     public Integer getId() {
         return id;
@@ -41,6 +35,20 @@ public class Cliente {
     }
 
 
+    public String getDocumento() { return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
     public String getNombre() {
         return nombre;

@@ -5,7 +5,9 @@
  */
 package ventasdao.controladores;
 
-import java.util.ArrayList;
+
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -13,10 +15,10 @@ import java.util.ArrayList;
  */
 public interface ICrud<T> {
     
-    public boolean crear(T entidad);
+    public boolean crear(T entidad) throws SQLException, Exception;
     public boolean eliminar(T entidad);
     public T extraer(int id);
     public boolean modificar(T entidad);
-    public ArrayList<T> listar();
+    public List <T> listar() throws SQLException, Exception;
     
 }

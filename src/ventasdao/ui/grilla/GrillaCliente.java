@@ -42,7 +42,7 @@ public class GrillaCliente extends AbstractTableModel{
               case 0: return cliente.getId();
               case 1: return cliente.getNombre();
               case 2: return cliente.getCuil();
-              case 3: return cliente.getRazonSocial();
+              case 3: return cliente.getApellido();
               default: return "";
           }
         

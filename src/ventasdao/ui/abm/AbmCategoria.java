@@ -28,9 +28,13 @@ public class AbmCategoria extends javax.swing.JInternalFrame {
         
         categoriaControlador = new CategoriaControlador();
         ArrayList<Categoria> categorias = new ArrayList<>();
-        
-        categorias = categoriaControlador.listar();
-        
+
+        try {
+            categorias = categoriaControlador.listar();
+        } catch (Exception e) {
+            e.printStackTrace ();
+        }
+
         GrillaCategoria grilla = new GrillaCategoria(categorias);
         jtListadoCategorias.setModel(grilla);
     }
@@ -68,7 +72,7 @@ public class AbmCategoria extends javax.swing.JInternalFrame {
         jbAltaCategoria.setText("Agregar");
         jbAltaCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAltaCategoriaActionPerformed(evt);
+         //       jbAltaCategoriaActionPerformed(evt);
             }
         });
 
@@ -131,7 +135,7 @@ public class AbmCategoria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaCategoriaActionPerformed
+    private void jbAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_jbAltaCategoriaActionPerformed
         // TODO add your handling code here:
         categoria = new Categoria();
         

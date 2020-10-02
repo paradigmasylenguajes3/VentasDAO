@@ -5,6 +5,7 @@
  */
 package ventasdao.ui.abm;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import ventasdao.controladores.ClienteControlador;
 import ventasdao.objetos.Cliente;
@@ -29,9 +30,14 @@ public class AbmCliente extends javax.swing.JInternalFrame {
         initComponents();
         
         ArrayList<Cliente> clientes;
-        clientes = clienteControlador.listar();
-        
-        grillaCliente = new GrillaCliente(clientes);
+        try {
+            clientes = clienteControlador.listar();
+            grillaCliente = new GrillaCliente(clientes);
+        } catch (Exception e) {
+            e.printStackTrace ();
+        }
+
+
         
         jtListadoCliente.setModel(grillaCliente);
         
@@ -45,7 +51,7 @@ public class AbmCliente extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()  {
 
         jtfNombre = new javax.swing.JTextField();
         jtfCuil = new javax.swing.JTextField();
@@ -68,7 +74,11 @@ public class AbmCliente extends javax.swing.JInternalFrame {
         jButton1.setText("Agregar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (Exception e) {
+                    e.printStackTrace ();
+                }
             }
         });
 
@@ -137,14 +147,19 @@ public class AbmCliente extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws Exception  {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         cliente = new Cliente();
         cliente.setCuil(jtfCuil.getText());
         cliente.setNombre(jtfNombre.getText());
-        cliente.setRazonSocial(jtfRazonSocial.getText());
-        
-        clienteControlador.crear(cliente);
+        cliente.setApellido(jtfRazonSocial.getText());
+
+        try {
+            clienteControlador.crear(cliente);
+        }catch (SQLException e){
+            e.printStackTrace ();
+        }
+
         jtListadoCliente.setModel(new GrillaCliente(clienteControlador.listar()));
         
     }//GEN-LAST:event_jButton1ActionPerformed
