@@ -6,6 +6,8 @@
 package ventasdao.ui.abm;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ventasdao.controladores.CategoriaControlador;
 import ventasdao.objetos.Categoria;
 import ventasdao.ui.grilla.GrillaCategoria;
@@ -70,9 +72,14 @@ public class AbmCategoria extends javax.swing.JInternalFrame {
         jLabel2.setText("Descripcion");
 
         jbAltaCategoria.setText("Agregar");
+        jbAltaCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbAltaCategoriaMouseClicked(evt);
+            }
+        });
         jbAltaCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-         //       jbAltaCategoriaActionPerformed(evt);
+                jbAltaCategoriaActionPerformed(evt);
             }
         });
 
@@ -107,7 +114,7 @@ public class AbmCategoria extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(157, 157, 157)
                         .addComponent(jbAltaCategoria)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
@@ -136,20 +143,35 @@ public class AbmCategoria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAltaCategoriaActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_jbAltaCategoriaActionPerformed
+      
+        
+        
+    }//GEN-LAST:event_jbAltaCategoriaActionPerformed
+
+    private void jbAltaCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAltaCategoriaMouseClicked
         // TODO add your handling code here:
+          // TODO add your handling code here:
         categoria = new Categoria();
         
         categoria.setDenominacion(jtfDenominacion.getText());
         categoria.setDescripcion(jtfDescripcion.getText());
         
         
-        categoriaControlador.crear(categoria);
+        try {
+            categoriaControlador.crear(categoria);
+        } catch (Exception ex) {
+            Logger.getLogger(AbmCategoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
-        jtListadoCategorias.setModel(new GrillaCategoria(categoriaControlador.listar()));
+        try {
+            jtListadoCategorias.setModel(new GrillaCategoria(categoriaControlador.listar()));
+        } catch (Exception ex) {
+            Logger.getLogger(AbmCategoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
-    }//GEN-LAST:event_jbAltaCategoriaActionPerformed
+    }//GEN-LAST:event_jbAltaCategoriaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

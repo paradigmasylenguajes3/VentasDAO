@@ -34,11 +34,7 @@ public class CategoriaControlador implements ICrud<Categoria>{
     private String sql;
     
     
-    public void insertarCategoria(Categoria c){
-        
-         
-        
-      }
+
     
     public ArrayList<Categoria> listar() throws SQLException, Exception{
     

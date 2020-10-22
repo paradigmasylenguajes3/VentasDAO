@@ -21,9 +21,9 @@ public class Conexion {
 
 
    static final String JDBC_DRIVER = "org.postgresql.Driver";  
-   static final String DB_URL = "jdbc:postgresql://localhost:5432/ventas";
+   static final String DB_URL = "jdbc:postgresql://localhost:5432/example";
    //static final String DB_URL = "jdbc:mysql://localhost:3306/sales_system";
-   // static final String JDBC_DRIVER ="com.mysql.jdbc.Driver";
+   //static final String JDBC_DRIVER ="com.mysql.jdbc.Driver";
    //  Database credentials
 
    
@@ -32,12 +32,12 @@ public class Conexion {
 
 
    public static Connection obtenerConexion() throws SQLException, ClassNotFoundException {
-      if (conn == null) {
+     
          try {
             //Set Values from  .env configuration file
-            Properties enviromentsVaribles = Conexion.getProperties();
-            final String  USER = (String) enviromentsVaribles.get("POSTGRES_USER");
-            final String  PASS = (String) enviromentsVaribles.get("POSTGRES_PASSWORD");
+            //Properties enviromentsVaribles = Conexion.getProperties();
+            final String  USER = "dbadm"; 
+            final String  PASS = "dbpwd";
 
             Class.forName(JDBC_DRIVER);
              //STEP 3: Open a connection
@@ -50,7 +50,7 @@ public class Conexion {
          } catch (Exception e) {
             e.printStackTrace();
          }
-      }
+      
       return conn;
    }
    
