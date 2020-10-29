@@ -34,11 +34,7 @@ public class CategoriaControlador implements ICrud<Categoria>{
     private String sql;
     
     
-    public void insertarCategoria(Categoria c){
-        
-         
-        
-      }
+  
     
     public ArrayList<Categoria> listar() throws SQLException, Exception{
     
@@ -68,7 +64,7 @@ public class CategoriaControlador implements ICrud<Categoria>{
                 
             }
             //System.out.println(cont);
-            connection.close();
+            //connection.close();
             return categorias;
         } catch(SQLException ex){
             ex.printStackTrace();
@@ -82,7 +78,7 @@ public class CategoriaControlador implements ICrud<Categoria>{
 
     @Override
     public boolean crear(Categoria entidad) throws SQLException, Exception{
-        connection = Conexion.obtenerConexion ();
+         connection = Conexion.obtenerConexion ();
          String sql = "INSERT INTO categorias (denominacion,descripcion) VALUES (?,?)";
         
         try {
@@ -98,18 +94,28 @@ public class CategoriaControlador implements ICrud<Categoria>{
     }
 
     @Override
-    public boolean eliminar(Categoria entidad) {
+    public boolean eliminar(Categoria entidad) throws SQLException, Exception{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Categoria extraer(int id) {
+    public Categoria extraer(int id) throws SQLException, Exception{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modificar(Categoria entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean modificar(Categoria entidad) throws SQLException, Exception {
+       connection = Conexion.obtenerConexion ();
+       this.sql = "UPDATE categorias SET denominacion=?, descripcion=? WHERE id=?";
+        
+       ps = connection.prepareStatement(sql);
+       ps.setString(1,entidad.getDenominacion() );
+       ps.setString(2,entidad.getDescripcion() );
+       ps.setInt(3, entidad.getId());
+       
+       ps.executeUpdate();
+       connection.close();
+       return true;
     }
     
 }
