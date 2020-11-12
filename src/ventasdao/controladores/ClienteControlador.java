@@ -6,6 +6,7 @@
 package ventasdao.controladores;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,13 +44,15 @@ public class ClienteControlador implements ICrud<Cliente>{
     public boolean crear(Cliente entidad) throws SQLException, Exception{
 
         connection = Conexion.obtenerConexion ();
-        String sql = "INSERT INTO clientes (nombre,documento,apellido) VALUES (?,?,?)";
-        
+        String sql = "INSERT INTO clientes (nombre,apellido,cuil,fecha_nacimiento, tipo_cliente_id) VALUES (?,?,?,?,?)";
+        Date fecha = new Date(entidad.getFechaNacimiento().getTime());
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, entidad.getNombre());
-            ps.setString(2, entidad.getDocumento());
-            ps.setString(3, entidad.getApellido ());
+            ps.setString(2, entidad.getApellido ());
+            ps.setString(3, entidad.getCuil());
+            ps.setDate(4, fecha);
+            ps.setInt(5, entidad.getTipoCliente().getId());
             ps.executeUpdate();
             connection.close();
             
@@ -83,13 +86,12 @@ public class ClienteControlador implements ICrud<Cliente>{
                 Cliente cliente = new Cliente();
                 
                 cliente.setNombre(rs.getString("nombre"));
-                cliente.setCuil(rs.getString("documento"));
+                cliente.setCuil(rs.getString("cuil"));
                 cliente.setId(rs.getInt("id"));
                 cliente.setApellido (rs.getString("apellido"));
-                
+                cliente.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
                         //System.out.println(cliente);
-                
-                
+
                 clientes.add(cliente);
                 
             }

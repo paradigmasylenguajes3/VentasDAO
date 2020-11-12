@@ -5,46 +5,48 @@
  */
 package ventasdao.ui.abm;
 
-import java.sql.SQLException;
+import java.sql.Date;
 import java.text.ParseException;
-import java.util.ArrayList;
-import javax.swing.text.MaskFormatter;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import javax.swing.DefaultComboBoxModel;
 import ventasdao.controladores.ClienteControlador;
+import ventasdao.controladores.TipoClienteControlador;
 import ventasdao.objetos.Cliente;
+import ventasdao.objetos.TipoCliente;
 import ventasdao.ui.grilla.GrillaCliente;
 
 /**
  *
- * @author Hugo Chanampe
+ * @author hchanampe
  */
 public class AbmCliente extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form AbmCliente
+     * Creates new form AbmCliente2
      */
+    
+    
     private Cliente cliente;
     private GrillaCliente grillaCliente;
     private ClienteControlador clienteControlador = new ClienteControlador();
+    private TipoClienteControlador tipoClienteControlador = new TipoClienteControlador();
+    private DefaultComboBoxModel modelCombo;
+    private SimpleDateFormat simpleDateFormat;
+    public AbmCliente() throws Exception {
+        
+    initComponents();
+        
+    modelCombo = new DefaultComboBoxModel(tipoClienteControlador.listar().toArray());   
+    jcbTipoCliente.setModel(modelCombo);
     
-
+    grillaCliente = new GrillaCliente(clienteControlador.listar());
+    jtListaClientes.setModel(grillaCliente);
+    simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
     
-    public AbmCliente() throws ParseException {
-        initComponents();
-       
-         
-        ArrayList<Cliente> clientes;
-        try {
-            clientes = clienteControlador.listar();
-            grillaCliente = new GrillaCliente(clientes);
-        } catch (Exception e) {
-            e.printStackTrace ();
-        }
-
-
-        
-        jtListadoCliente.setModel(grillaCliente);
-        
-        
+    
     }
 
     /**
@@ -54,38 +56,35 @@ public class AbmCliente extends javax.swing.JInternalFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()  {
+    private void initComponents() {
 
+        jtfApellido = new javax.swing.JTextField();
         jtfNombre = new javax.swing.JTextField();
-        jtfCuil = new javax.swing.JTextField();
-        jtfRazonSocial = new javax.swing.JTextField();
+        jtfCuit = new javax.swing.JTextField();
+        jcbTipoCliente = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jdcFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtListadoCliente = new javax.swing.JTable();
+        jtListaClientes = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
-        setClosable(true);
+        jcbTipoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel1.setText("Nombre");
+        jLabel1.setText("Apellido");
 
-        jLabel2.setText("Cuil");
+        jLabel2.setText("Nombre");
 
-        jLabel3.setText("Razon Social");
+        jLabel3.setText("Cuil/Cuit");
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton1ActionPerformed(evt);
-                } catch (Exception e) {
-                    e.printStackTrace ();
-                }
-            }
-        });
+        jLabel4.setText("Fecha Nacimiento");
 
-        jtListadoCliente.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel5.setText("Tipo Cliente");
+
+        jtListaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -96,7 +95,16 @@ public class AbmCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jtListadoCliente);
+        jScrollPane1.setViewportView(jtListaClientes);
+
+        jButton1.setBackground(new java.awt.Color(204, 255, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setText("Registrar Cliente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,66 +113,92 @@ public class AbmCliente extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(151, 151, 151)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfNombre)
-                            .addComponent(jtfCuil)
-                            .addComponent(jtfRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdcFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jtfNombre)
+                                .addComponent(jtfApellido)
+                                .addComponent(jtfCuit, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jcbTipoCliente, 0, 138, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(161, 161, 161))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfCuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(52, 52, 52)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(142, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jtfCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jdcFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jcbTipoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws Exception  {//GEN-FIRST:event_jButton1ActionPerformed
+    private void resetFields(){
+    
+        jtfApellido.setText("");
+        jtfCuit.setText("");
+        jtfNombre.setText(""); 
+    }
+    
+    private void refreshTable(){
+        try {
+            jtListaClientes.setModel(new GrillaCliente(clienteControlador.listar()));
+        } catch (Exception ex) {
+            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        cliente = new Cliente();
-        cliente.setCuil(jtfCuil.getText());
+        cliente = new Cliente();   
+        cliente.setApellido(jtfApellido.getText());
         cliente.setNombre(jtfNombre.getText());
-        cliente.setApellido(jtfRazonSocial.getText());
+        cliente.setCuil(jtfCuit.getText());
+        cliente.setFechaNacimiento(jdcFechaNacimiento.getDate());
+        cliente.setTipoCliente((TipoCliente)jcbTipoCliente.getSelectedItem());
 
         try {
             clienteControlador.crear(cliente);
-        }catch (SQLException e){
-            e.printStackTrace ();
+        } catch (Exception ex) {
+            Logger.getLogger(AbmCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        jtListadoCliente.setModel(new GrillaCliente(clienteControlador.listar()));
-        
+        this.resetFields();
+        this.refreshTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -173,10 +207,15 @@ public class AbmCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtListadoCliente;
-    private javax.swing.JTextField jtfCuil;
+    private javax.swing.JComboBox<String> jcbTipoCliente;
+    private com.toedter.calendar.JDateChooser jdcFechaNacimiento;
+    private javax.swing.JTable jtListaClientes;
+    private javax.swing.JTextField jtfApellido;
+    private javax.swing.JTextField jtfCuit;
     private javax.swing.JTextField jtfNombre;
-    private javax.swing.JTextField jtfRazonSocial;
     // End of variables declaration//GEN-END:variables
 }
+
