@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import ventasdao.ui.abm.AbmCategoria;
 import ventasdao.ui.abm.AbmCliente;
 import ventasdao.ui.abm.AbmCliente;
+import ventasdao.ui.abm.AbmProducto;
 
 /**
  *
@@ -38,7 +39,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmiCategoria = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmiProducto = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,8 +72,18 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("Producto");
-        jMenu1.add(jMenuItem2);
+        jmiProducto.setText("Producto");
+        jmiProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmiProductoMouseClicked(evt);
+            }
+        });
+        jmiProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiProductoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiProducto);
 
         jMenuBar1.add(jMenu1);
 
@@ -120,6 +131,18 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jmiProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoActionPerformed
+        // TODO add your handling code here:
+        AbmProducto abmProducto = new AbmProducto();
+        jdpContenedorPrincipal.add(abmProducto);
+        abmProducto.setVisible(true);
+      
+    }//GEN-LAST:event_jmiProductoActionPerformed
+
+    private void jmiProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmiProductoMouseClicked
+      
+    }//GEN-LAST:event_jmiProductoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -159,8 +182,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JDesktopPane jdpContenedorPrincipal;
     private javax.swing.JMenuItem jmiCategoria;
+    private javax.swing.JMenuItem jmiProducto;
     // End of variables declaration//GEN-END:variables
 }

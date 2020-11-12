@@ -100,7 +100,23 @@ public class CategoriaControlador implements ICrud<Categoria>{
 
     @Override
     public Categoria extraer(int id) throws SQLException, Exception{
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            connection = Conexion.obtenerConexion();
+            sql = "SELECT * FROM categorias WHERE id = ?";
+            ps = connection.prepareStatement(sql);
+            
+            ps.setInt(1, id);
+            
+            
+            this.rs   = ps.executeQuery();
+            
+            connection.close();
+            
+            this.rs.next();
+            Categoria categoria = new Categoria();
+            categoria.setId(id);
+            categoria.setDenominacion(rs.getString("denominacion"));
+            categoria.setDescripcion(rs.getString("descripcion"));
+            return categoria;
     }
 
     @Override
