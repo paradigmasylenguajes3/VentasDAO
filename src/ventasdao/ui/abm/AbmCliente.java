@@ -6,7 +6,9 @@
 package ventasdao.ui.abm;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import javax.swing.text.MaskFormatter;
 import ventasdao.controladores.ClienteControlador;
 import ventasdao.objetos.Cliente;
 import ventasdao.ui.grilla.GrillaCliente;
@@ -24,11 +26,12 @@ public class AbmCliente extends javax.swing.JInternalFrame {
     private GrillaCliente grillaCliente;
     private ClienteControlador clienteControlador = new ClienteControlador();
     
+
     
-    
-    public AbmCliente() {
+    public AbmCliente() throws ParseException {
         initComponents();
-        
+       
+         
         ArrayList<Cliente> clientes;
         try {
             clientes = clienteControlador.listar();

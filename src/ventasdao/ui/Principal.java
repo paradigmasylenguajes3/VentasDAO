@@ -5,8 +5,11 @@
  */
 package ventasdao.ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ventasdao.ui.abm.AbmCategoria;
 import ventasdao.ui.abm.AbmCliente;
+import ventasdao.ui.abm.AbmCliente2;
 
 /**
  *
@@ -99,9 +102,16 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        AbmCliente abmCliente = new AbmCliente();
-        jdpContenedorPrincipal.add(abmCliente);
-        abmCliente.setVisible(true);
+        AbmCliente2 abmCliente;
+        try {
+            abmCliente = new AbmCliente2();
+            jdpContenedorPrincipal.add(abmCliente);
+            abmCliente.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
         
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed

@@ -41,9 +41,7 @@ public class GrillaCategoria extends AbstractTableModel{
               case 2: return c.getDescripcion();
               default: return "";
           }
-          
-          
-          
+
     }
 
     @Override
@@ -63,8 +61,6 @@ public class GrillaCategoria extends AbstractTableModel{
    public Categoria getCategoriaFromRow(int rowIndex){
    
             return categorias.get(rowIndex);
-   
-   
    }
     
  
